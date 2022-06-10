@@ -1,0 +1,21 @@
+Package: nhs_wales_travel_time_matrices
+Title: nhs_wales_travel_time_matrices
+Version: 0.0.1
+Authors@R: c(
+  person("Adam", "Watkins", email = "adam.watkins@stupidpupil.co.uk", role = c("aut", "cre"))
+  )
+Description: Create travel time matrices
+License: MIT
+Encoding: UTF-8
+Depends: 
+  R (>= 2.10),
+  tidyverse,
+  sf,
+  r5r,
+  jsonlite,
+  twRch,
+  NHSWalesOrgsAndSites
+Remotes:
+  stupidpupil/UK2GTFS,
+  stupidpupil/twRch,
+  stupidpupil/r_nhs_wales_orgs_and_sites

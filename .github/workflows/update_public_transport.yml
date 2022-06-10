@@ -1,0 +1,67 @@
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: 25 5 * * 2
+    
+name: update_public_transport
+
+jobs:
+  update_public_transport:
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        if: steps.cache_osm.outputs.cache-hit != 'true'
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Restore R package cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
+        run: |
+          install.packages(c("devtools"))
+          devtools::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+
+      - name: Install Java 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Checkout matrix-releases branch
+        uses: actions/checkout@v2
+        with:
+          ref: matrix-releases
+          path: matrix-releases
+
+      - name: Produce departures slice
+        run: |
+          options(java.parameters = "-Xmx12G")
+          devtools::load_all()
+          produce_public_transport_matrices()
+        shell: Rscript {0}
+
+      - name: Copy matrices and commit
+        run: |
+          cd matrix-releases
+          rm -f *_public_*.csv
+          git config user.name "Matrix Release Bot"
+          git config user.email "<>"
+          git add .
+          git commit -m "Updated for new release"
+          git push origin matrix-releases
+          cd ..
