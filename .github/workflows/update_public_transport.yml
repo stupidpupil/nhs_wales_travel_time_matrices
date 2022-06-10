@@ -48,10 +48,11 @@ jobs:
           ref: matrix-releases
           path: matrix-releases
 
-      - name: Produce departures slice
+      - name: Produce updated matrices
         run: |
           options(java.parameters = "-Xmx12G")
           devtools::load_all()
+          fetch_r5r_network_dat()
           produce_public_transport_matrices()
         shell: Rscript {0}
 
