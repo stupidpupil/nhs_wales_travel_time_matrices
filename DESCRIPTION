@@ -14,7 +14,10 @@ Depends:
   r5r,
   jsonlite,
   twRch,
-  NHSWalesOrgsAndSites
+  NHSWalesOrgsAndSites,
+  osrm,
+  checkmate,
+  processx
 Remotes:
   stupidpupil/UK2GTFS,
   stupidpupil/twRch,
