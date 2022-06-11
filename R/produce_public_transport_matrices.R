@@ -18,7 +18,7 @@ produce_public_transport_matrices <- function(){
     max_trip_duration = (3*60),
     time_window = 8*60,
     verbose = FALSE
-    ) %>% mutate(home_id = fromId, site_id = toId, siteward_bound_travel_time_minutes = travel_time)
+    ) %>% rename(home_id = fromId, site_id = toId, siteward_bound_travel_time_minutes = travel_time)
 
   saveRDS(siteward_bound, "data-raw/siteward_bound.rds")
 
@@ -31,7 +31,7 @@ produce_public_transport_matrices <- function(){
     max_trip_duration = (3*60),
     time_window = 8*60,
     verbose = FALSE
-    ) %>% mutate(home_id = toId, site_id = fromId, homeward_bound_travel_time_minutes = travel_time)
+    ) %>% rename(home_id = toId, site_id = fromId, homeward_bound_travel_time_minutes = travel_time)
 
   saveRDS(homeward_bound, "data-raw/homeward_bound.rds")
 
