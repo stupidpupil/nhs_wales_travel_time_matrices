@@ -14,6 +14,13 @@ and the [*r5r* library](https://ipeagit.github.io/r5r/), which is built on top o
 
 They are regenerated weekly.
 
+### Loading public transport times into R
+
+```R
+library(tidyverse)
+travel_time_lookup <- read_csv("https://raw.githubusercontent.com/stupidpupil/nhs_wales_travel_time_matrices/matrix-releases/Tue0800_Tue1200_public_p50.csv", comment="#")
+```
+
 ### Constraints
 
 The maximum walking distance is 1 kilometre. Walking speed is 3.6 km/h. This is likely a little faster than many people with impaired mobility.
@@ -25,7 +32,7 @@ Transfer "slack" time - the minimum time between alighting from one vehicle and 
 ### Siteward- and homeward-bound, time-of-day, percentiles
 Travel times are calculated seperately for travelling _from_ LSOAs to hospital sites ("siteward-bound" trips) and _to_ LSOAs back from hospital sites ("homeward-bound" trips.)
 
-Travel times are currently calculated over the departure window from 08:00 to 16:00 for siteward-bound trips, for the window from noon until 20:00 for homeward-bound trips, and the median travel time for someone starting their journey at some time in those windows is taken. (A different approach, better reflecting travel-plus-waiting times for appointments, might be developed in the future for siteward-bound trips.)
+Travel times are currently calculated over the departure window from 08:00 to 16:00 on a Tuesday for siteward-bound trips, and for the window from noon until 20:00 for homeward-bound trips, and the median travel time for someone starting their journey at some time in those windows is taken. (A different approach, better reflecting travel-plus-waiting times for appointments, might be developed in the future for siteward-bound trips.)
 
 Where the median travel time is under the maximum trip duration for both the siteward- and homeward-bound trips, then the two travel times are averaged together as the `travel_time_minutes` field. If the median travel time for either leg is too high (or travel is not possible at all given other constraints) then the combination of LSOA and hospital site are excluded entirely.
 
@@ -35,7 +42,9 @@ In general, we suggest using the `travel_time_minutes` field for most purposes.
 
 These times are generated using [OpenStreetMap (OSM) road network data](https://www.openstreetmap.org/) and the [Open Source Routing Machine (OSRM)](https://github.com/Project-OSRM/osrm-backend).
 
-### Loading into R
+### Loading drive-times into R
+
+Drive-times are saved as a matrix with origins as rows and destinations as columns. The code below will download this matrix and transform it to a lookup table using `tidyr::pivot_longer()`.
 
 ```R
 library(tidyverse)
@@ -64,7 +73,7 @@ The travel times do _not_ include any estimates for finding somewhere to park or
 
 # Licence
 
-The public transport travel time matrices produced by this repo are made available under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/) by Adam Watkins.
+The travel time matrices produced by this repo are made available under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/) by Adam Watkins.
 
 They are derived from other data, including:
 - street map information obtained from [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), via [Geofabrik.de](https://download.geofabrik.de/europe/great-britain.html), under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/),
