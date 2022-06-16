@@ -73,7 +73,7 @@ The travel times do _not_ include any estimates for finding somewhere to park or
 
 # Licence
 
-The travel time matrices produced by this repo are made available under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/) by Adam Watkins.
+The travel time matrices produced by this repo are made available under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/) by Adam Watkins. The work to enable this has been supported by my employer [Improvement Cymru, part of Public Health Wales](https://phw.nhs.wales/services-and-teams/improvement-cymru/), but this should not be taken as any implication of endorsement or warranty.
 
 They are derived from other data, including:
 - street map information obtained from [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), via [Geofabrik.de](https://download.geofabrik.de/europe/great-britain.html), under the [ODbL v1.0](https://opendatacommons.org/licenses/odbl/1-0/),
