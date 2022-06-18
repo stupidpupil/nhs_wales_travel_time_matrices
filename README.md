@@ -2,6 +2,8 @@
 # Methodology
 These travel time matrices show travel times between [LSOA11 Trip-points](https://github.com/stupidpupil/wales_lsoa_trip_points) in Wales and the borders and [some hospital sites relevant to NHS Wales](https://github.com/stupidpupil/r_nhs_wales_orgs_and_sites/blob/main/data-raw/nhs_wales_sites.csv).
 
+([_LSOA-to-LSOA_ travel time matrices are available here.](https://stupidpupil.github.io/lsoa_travel_time_viewer/))
+
 ## Hospital site locations
 
 Postcode centroids have been used as hospital site locations. (A different approach, looking for site entrances on OpenStreetMap, might be developed in the future.)
