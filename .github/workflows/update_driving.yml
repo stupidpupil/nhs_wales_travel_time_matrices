@@ -36,6 +36,12 @@ jobs:
           devtools::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
+      - uses: actions/checkout@v2
+        with:
+          repository: 'Project-OSRM/osrm-backend'
+          path: 'osrm-backend'
+
+
       - name: Get osrm-backend ref
         id: osrm-backend-ref
         run: |
