@@ -88,7 +88,7 @@ jobs:
       - name: Copy matrices and commit
         run: |
           cd matrix-releases
-          rm -f *_public_*.csv
+          rm -f *_driving*.csv
           cp ../output/* .
           git config user.name "Matrix Release Bot"
           git config user.email "<>"
