@@ -3,10 +3,10 @@ on:
   schedule:
     - cron: 25 5 * * 2
     
-name: update_public_transport
+name: update_driving
 
 jobs:
-  update_public_transport:
+  update_driving:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -36,18 +36,41 @@ jobs:
           devtools::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      - name: Install Java 11
-        uses: actions/setup-java@v2
+      - name: Get osrm-backend ref
+        id: osrm-backend-ref
+        run: |
+          echo "::set-output name=ref::$(git -C osrm-backend rev-parse HEAD)"
+        shell: bash
+
+      - name: Cache osrm-backend/build
+        id: cache_osrm_backend_build
+        uses: actions/cache@v2
         with:
-          distribution: 'adopt'
-          java-version: '11'
+          path: |
+            osrm-backend/build
+            osrm-backend/mason_packages
+          key: ${{ runner.os }}-${{ steps.osrm-backend-ref.outputs.ref }}-v2
+
+      - name: Build osrm-backend
+        if: steps.cache_osrm_backend_build.outputs.cache-hit != 'true'
+        run: |
+          cd osrm-backend
+          mkdir build
+          cd build
+          cmake ../ -DENABLE_MASON=1
+          make
+          cd ../../
+        shell: bash
+
+      - name: Add osrm to path
+        run: |
+          echo "$GITHUB_WORKSPACE/osrm-backend/build" >> $GITHUB_PATH
 
       - name: Produce updated matrices
         run: |
-          options(java.parameters = "-Xmx12G")
           devtools::load_all()
-          fetch_r5r_network_dat()
-          produce_public_transport_matrices()
+          fetch_osrm_graph()
+          produce_driving_matrices()
         shell: Rscript {0}
 
       - name: Checkout matrix-releases branch
