@@ -1,7 +1,5 @@
 on: 
   workflow_dispatch:
-  schedule:
-    - cron: 25 5 * * 2
     
 name: update_driving
 
