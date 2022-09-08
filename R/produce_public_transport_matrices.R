@@ -8,7 +8,7 @@ produce_public_transport_matrices <- function(){
   unlink("output/sites.geojson")
   sites |> sf::st_write("output/sites.geojson")
 
-  sites <- %>%
+  sites <- sites %>%
     mutate(id = Code)
 
   trip_points <- lsoa_trip_points() %>%
