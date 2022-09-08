@@ -1,5 +1,5 @@
 produce_driving_matrices <- function(){
-  sites <- nhs_wales_sites_with_postcode_centroids() %>%
+  sites <- nhs_wales_sites_with_points() %>%
     mutate(id = Code) %>% select(id)
 
   trip_points <- lsoa_trip_points() %>%

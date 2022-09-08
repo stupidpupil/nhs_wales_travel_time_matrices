@@ -3,7 +3,7 @@ produce_public_transport_matrices <- function(){
 
   max_walk_dist <- 1000
 
-  sites <- nhs_wales_sites_with_postcode_centroids() %>%
+  sites <- nhs_wales_sites_with_points() %>%
     mutate(id = Code)
 
   trip_points <- lsoa_trip_points() %>%
