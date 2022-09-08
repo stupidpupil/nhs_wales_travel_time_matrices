@@ -3,7 +3,12 @@ produce_public_transport_matrices <- function(){
 
   max_walk_dist <- 1500
 
-  sites <- nhs_wales_sites_with_points() %>%
+  sites <- nhs_wales_sites_with_points()
+
+  unlink("output/sites.geojson")
+  sites |> sf::st_write("output/sites.geojson")
+
+  sites <- %>%
     mutate(id = Code)
 
   trip_points <- lsoa_trip_points() %>%

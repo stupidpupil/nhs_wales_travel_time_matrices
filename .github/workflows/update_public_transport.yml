@@ -60,6 +60,7 @@ jobs:
         run: |
           cd matrix-releases
           rm -f *_public_*.csv
+          rm -f "sites.geojson"
           cp ../output/* .
           git config user.name "Matrix Release Bot"
           git config user.email "<>"
