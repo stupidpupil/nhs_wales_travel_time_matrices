@@ -1,7 +1,7 @@
 produce_public_transport_matrices <- function(){
   r5r_core <- r5r::setup_r5("data-raw/r5r_network_dat")
 
-  max_walk_dist <- 1000
+  max_walk_dist <- 1500
 
   sites <- nhs_wales_sites_with_points() %>%
     mutate(id = Code)
