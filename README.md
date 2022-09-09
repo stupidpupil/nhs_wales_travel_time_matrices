@@ -6,7 +6,7 @@ These travel time matrices show travel times between [LSOA11 Trip-points](https:
 
 ## Hospital site locations
 
-Postcode centroids have been used as hospital site locations. (A different approach, looking for site entrances on OpenStreetMap, might be developed in the future.)
+Hospital site locations are mostly derived from a combination of OpenStreetMap and Wikidata, and many should be accurate to within a few metres of hospitals' main entrances. (A very small number of sites might only be accurate to their postcode centroid.)
 
 ## Public transport
 
@@ -25,7 +25,7 @@ travel_time_lookup <- read_csv("https://raw.githubusercontent.com/stupidpupil/nh
 
 ### Constraints
 
-The maximum walking distance is 1 kilometre. Walking speed is 3.6 km/h. This is likely a little faster than many people with impaired mobility.
+The maximum walking distance is 1.5 kilometre. Walking speed is 3.6 km/h. This is likely a little faster than many people with impaired mobility.
 
 The maximum trip duration is 3 hours. 
 
