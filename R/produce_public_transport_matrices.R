@@ -19,7 +19,7 @@ produce_public_transport_matrices <- function(){
     destinations = sites,
     mode = c('WALK', 'TRANSIT'),
     departure_datetime = next_tuesday("08:00"),
-    max_walk_dist = max_walk_dist,
+    max_walk_time = max_walk_dist/60,
     max_trip_duration = (3*60),
     time_window = 8*60,
     verbose = FALSE
@@ -32,7 +32,7 @@ produce_public_transport_matrices <- function(){
     destinations = trip_points,
     mode = c('WALK', 'TRANSIT'),
     departure_datetime = next_tuesday("12:00"),
-    max_walk_dist = max_walk_dist,
+    max_walk_time = max_walk_dist/60,
     max_trip_duration = (3*60),
     time_window = 8*60,
     verbose = FALSE
