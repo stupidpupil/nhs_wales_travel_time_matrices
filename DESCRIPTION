@@ -11,7 +11,7 @@ Depends:
   R (>= 2.10),
   tidyverse,
   sf,
-  r5r,
+  r5r (>= 2.0),
   jsonlite,
   twRch,
   NHSWalesOrgsAndSites,
